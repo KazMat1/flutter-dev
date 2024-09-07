@@ -36,14 +36,14 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _loadCustomMarker() async {
     final BitmapDescriptor customIcon = await BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(200, 200)),
+      const ImageConfiguration(size: Size(64, 64)),
       'images/soba.png',
     );
 
     setState(() {
       _markers.add(const Marker(
-            markerId: MarkerId('Santiago'),
-            position: LatLng(-33.488897, -70.669265)
+            markerId: MarkerId('currentLocation'),
+            position: LatLng(26.6348004, 128.0447426)
       ));
 
       _markers.add(const Marker(
@@ -88,12 +88,15 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Awesome Map Viewer'),
+          title: const Text(
+            'Awesome Map Viewer',
+            style: TextStyle(color: Colors.white
+          )),
           backgroundColor: Colors.green[700],
         ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
-          mapType: MapType.hybrid, // 方位磁針
+        //   mapType: MapType.hybrid, // 方位磁針
           initialCameraPosition: CameraPosition(
             target: _center,
             zoom: 8.0,
