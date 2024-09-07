@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _loadCustomMarker() async {
     final BitmapDescriptor customIcon = await BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(48, 48)),
+      const ImageConfiguration(size: Size(200, 200)),
       'images/soba.png',
     );
 
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
 
       _markers.add(Marker(
           markerId: const MarkerId('custom_marker'),
-          position: const LatLng(26.5916283, 127.9739272), // 任意の座標
+          position: const LatLng(26.6021631, 127.9855404), // 任意の座標
           icon: customIcon,
       ));
     });
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
         bearing: 192.8334901395799,
         target: currentLocation,
         tilt: 59.440717697143555,
-        zoom: 19.151926040649414,
+        zoom: 20,
       );
     });
   }
@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Maps Sample App'),
+          title: const Text('Awesome Map Viewer'),
           backgroundColor: Colors.green[700],
         ),
         body: GoogleMap(
