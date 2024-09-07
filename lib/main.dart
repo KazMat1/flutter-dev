@@ -12,9 +12,42 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Set<Marker> _markers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCustomMarker();
+  }
+
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  Future<void> _loadCustomMarker() async {
+    final BitmapDescriptor customIcon = await BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(48, 48)),
+      'images/soba.png',
+    );
+
+    setState(() {
+      _markers.add(const Marker(
+            markerId: MarkerId('Santiago'),
+            position: LatLng(-33.488897, -70.669265)
+      ));
+
+      _markers.add(const Marker(
+          markerId: MarkerId('Sydney'),
+          position: LatLng(-33.86, 151.20),
+      ));
+
+      _markers.add(Marker(
+          markerId: const MarkerId('custom_marker'),
+          position: const LatLng(26.5916283, 127.9739272), // 任意の座標
+          icon: customIcon,
+      ));
+    });
+  }
+
+  final LatLng _center = const LatLng(26.4874273, 127.5783151);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -39,18 +72,9 @@ class _MyAppState extends State<MyApp> {
           mapType: MapType.hybrid, // 方位磁針
           initialCameraPosition: CameraPosition(
             target: _center,
-            zoom: 11.0,
+            zoom: 8.0,
           ),
-          markers: {
-            const Marker(
-                markerId: MarkerId('Santiago'),
-                position: LatLng(-33.488897, -70.669265)
-            ),
-            const Marker(
-                markerId: MarkerId('Sydney'),
-                position: LatLng(-33.86, 151.20),
-            )
-          },
+          markers: _markers,
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: _goToTheLake,
